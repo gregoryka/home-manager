@@ -13,6 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     declarative-cachix.url = "github:jonascarpay/declarative-cachix";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
   outputs =
@@ -26,6 +27,13 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       glpkgs = nixgl.packages.${system};
+
+      extensions = inputs.nix-vscode-extensions.extensions.${system};
+
+      vscode = pkgs.vscode-with-extensions.override {
+        vscode = pkgs.vscodium;
+        vscodeExtensions = [ extensions.open-vsx.jnoortheen.nix-ide ];
+      };
     in
     {
       homeConfigurations."gregorykanter" = home-manager.lib.homeManagerConfiguration {
@@ -44,6 +52,12 @@
           inherit glpkgs;
           inherit inputs;
         };
+      };
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = [ vscode ];
+        shellHook = ''
+          exec zsh
+        '';
       };
     };
 }
