@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 
 {
 
@@ -133,6 +138,22 @@
       # And then run compinit again to load all completions
       completionInit = "compinit";
 
+      dotDir =
+        let
+          relativeConfigHome =
+            builtins.replaceStrings
+              [
+                config.home.homeDirectory
+                "/.config"
+              ]
+              [
+                ""
+                ".config"
+              ]
+              config.xdg.configHome;
+        in
+        "${relativeConfigHome}/zsh";
+
       antidote = {
         enable = true;
         plugins = [
@@ -150,6 +171,11 @@
         ];
         useFriendlyNames = true;
       };
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
   };
 
