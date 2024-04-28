@@ -15,12 +15,19 @@
     declarative-cachix.url = "github:jonascarpay/declarative-cachix";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nixgl, ... }:
+  outputs =
+    inputs@{
+      nixpkgs,
+      home-manager,
+      nixgl,
+      ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       glpkgs = nixgl.packages.${system};
-    in {
+    in
+    {
       homeConfigurations."gregorykanter" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 

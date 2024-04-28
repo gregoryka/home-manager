@@ -3,7 +3,8 @@
 {
 
   imports = [
-    inputs.declarative-cachix.homeManagerModules.declarative-cachix {
+    inputs.declarative-cachix.homeManagerModules.declarative-cachix
+    {
       caches.cachix = [
         {
           name = "nix-community";
@@ -18,7 +19,6 @@
     # manage.
     username = "gregorykanter";
     homeDirectory = "/home/gregorykanter";
-
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
@@ -58,7 +58,6 @@
       #   echo "Hello, ${config.home.username}!"
       # '')
     ];
-
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
@@ -139,7 +138,7 @@
         plugins = [
           # Completion files are marked with kind:fpath
           "zsh-users/zsh-completions path:src kind:fpath"
-          "ohmyzsh/ohmyzsh path:lib"  # Prereq for some oh-my-zsh plugins and themes
+          "ohmyzsh/ohmyzsh path:lib" # Prereq for some oh-my-zsh plugins and themes
           "ohmyzsh/ohmyzsh path:themes/robbyrussell.zsh-theme"
 
           # For fedora based systems
@@ -159,7 +158,10 @@
     mime.enable = true;
     systemDirs = {
       config = [ "/etc/xdg" ];
-      data = [ "/usr/share" "/usr/local/share" ];
+      data = [
+        "/usr/share"
+        "/usr/local/share"
+      ];
     };
     userDirs = {
       enable = true;
@@ -171,8 +173,10 @@
   nix = {
     package = with pkgs; nixUnstable;
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
   };
-
 }
