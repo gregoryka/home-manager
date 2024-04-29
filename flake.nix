@@ -54,10 +54,7 @@
         };
       };
       devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [ vscode ];
-        shellHook = ''
-          exec zsh
-        '';
+        packages = [ vscode ];
       };
     };
 }
