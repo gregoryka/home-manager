@@ -33,6 +33,10 @@
       name = "nix-community";
       sha256 = "0m6kb0a0m3pr6bbzqz54x37h5ri121sraj1idfmsrr6prknc7q3x";
     }
+    {
+      name = "cachix";
+      sha256 = "15j0qzkghg3df7kv33ga0vly92a8s520wf4v4c27bvnk2ac1ibl4";
+    }
   ];
 
 }
