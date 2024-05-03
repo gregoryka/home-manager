@@ -1,60 +1,42 @@
 {
-  description = "Home Manager configuration of gregorykanter";
+  description = "A home-manager template providing useful tools & settings for Nix-based development";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
+    # Principle inputs (updated by `nix run .#update`)
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixgl = {
-      url = "github:nix-community/nixGL";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixos-flake.url = "github:srid/nixos-flake";
+    systems.url = "github:nix-systems/default";
+
+    # Software inputs
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     declarative-cachix.url = "github:jonascarpay/declarative-cachix";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
-  outputs =
-    inputs@{
-      nixpkgs,
-      home-manager,
-      nixgl,
-      ...
-    }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-      glpkgs = nixgl.packages.${system};
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = import inputs.systems;
+      imports = [
+        inputs.nixos-flake.flakeModule
+        ./nix/toplevel.nix
+      ];
 
-      extensions = inputs.nix-vscode-extensions.extensions.${system};
+      flake.nix-dev-home.username = "gregorykanter";
 
-      vscode = pkgs.vscode-with-extensions.override {
-        vscode = pkgs.vscodium;
-        vscodeExtensions = [ extensions.open-vsx.jnoortheen.nix-ide ];
-      };
-    in
-    {
-      homeConfigurations."gregorykanter" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+      perSystem = { self', pkgs, ... }: {
+        formatter = pkgs.nixpkgs-fmt;
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [
-          #  {}
-          ./home.nix
-        ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-        extraSpecialArgs = {
-          inherit glpkgs;
-          inherit inputs;
+        devShells.default = pkgs.mkShell {
+          name = "nix-dev-home";
+          nativeBuildInputs = with pkgs; [ just ];
         };
-      };
-      devShells.${system}.default = pkgs.mkShell {
-        packages = [ vscode ];
       };
     };
 }

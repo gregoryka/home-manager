@@ -1,47 +1,32 @@
+{ flake, pkgs, config, ... }:
 {
-  pkgs,
-  inputs,
-  config,
-  ...
-}:
-
-{
-
   imports = [
-    inputs.declarative-cachix.homeManagerModules.declarative-cachix
-    {
-      caches.cachix = [
-        {
-          name = "nix-community";
-          sha256 = "0m6kb0a0m3pr6bbzqz54x37h5ri121sraj1idfmsrr6prknc7q3x";
-        }
-      ];
-    }
+    ./nix.nix
+    ./nix-index.nix
   ];
 
+  # Nix packages to install to $HOME
+  #
+  # Search for packages here: https://search.nixos.org/packages
   home = {
-    # Home Manager needs a bit of information about you and the paths it should
-    # manage.
-    username = "gregorykanter";
-    homeDirectory = "/home/gregorykanter";
-
-    # This value determines the Home Manager release that your configuration is
-    # compatible with. This helps avoid breakage when a new Home Manager release
-    # introduces backwards incompatible changes.
-    #
-    # You should not change this value, even if you update Home Manager. If you do
-    # want to update the value, then make sure to first check the Home Manager
-    # release notes.
-    stateVersion = "23.11"; # Please read the comment before changing.
-
-    # The home.packages option allows you to install Nix packages into your
-    # environment.
     packages = with pkgs; [
-      # # Adds the 'hello' command to your environment. It prints a friendly
-      # # "Hello, world!" when run.
-      # pkgs.hello
+      # Unix tools
+      ripgrep # Better `grep`
+      fd
+      sd
+      tree
+
+      # Nix dev
       cachix
-      nixd
+      nixd # Nix language server
+      nix-info
+      nixpkgs-fmt
+      nixci
+      nix-health
+
+      # Dev
+      tmate
+
       git-credential-manager
       dust
       tldr
@@ -49,19 +34,7 @@
       nix-output-monitor
       nvd
       pyload-ng
-
-      # # It is sometimes useful to fine-tune packages, for example, by applying
-      # # overrides. You can do that directly here, just don't forget the
-      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-      # # fonts?
-      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-      # # You can also create simple shell scripts directly inside your
-      # # configuration. For example, this adds a command 'my-hello' to your
-      # # environment:
-      # (pkgs.writeShellScriptBin "my-hello" ''
-      #   echo "Hello, ${config.home.username}!"
-      # '')
+      devenv
     ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -78,6 +51,8 @@
       #   org.gradle.daemon.idletimeout=3600000
       # '';
     };
+
+    shellAliases = {};
 
     # Home Manager can also manage your environment variables through
     # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -100,38 +75,19 @@
     };
   };
 
+  # Programs natively supported by home-manager.
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
-    fzf = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-
-    bat.enable = true;
-    eza.enable = true;
-    btop.enable = true;
-    atuin.enable = true;
-
-    git = {
-      enable = true;
-      lfs.enable = true;
-      userEmail = "gregorykanter1@gmail.com";
-      userName = "Gregory Kanter";
-      extraConfig = {
-        init = {
-          defaultBranch = "main";
-        };
-        credential = {
-          helper = "git-credential-manager";
-          credentialStore = "secretservice";
-        };
-      };
-    };
-
     zsh = {
       enable = true;
       enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      envExtra = ''
+        # Make Nix and home-manager installed things available in PATH.
+        export PATH=/run/current-system/sw/bin/:/nix/var/nix/profiles/default/bin:$HOME/.nix-profile/bin:/etc/profiles/per-user/$USER/bin:$PATH
+      '';
 
       # Some plugins use compdef command directly, so run compinit early
       initExtraFirst = "autoload -U compinit && compinit";
@@ -173,12 +129,67 @@
       };
     };
 
+    # Better `cat`
+    bat.enable = true;
+    eza.enable = true;
+    btop.enable = true;
+    atuin.enable = true;
+    # Type `z <pat>` to cd to some directory
+    zoxide.enable = true;
+    # Type `<ctrl> + r` to fuzzy search your shell history
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    starship = {
+      enable = true;
+      settings = {
+        username = {
+          style_user = "blue bold";
+          style_root = "red bold";
+          format = "[$user]($style) ";
+          disabled = false;
+          show_always = true;
+        };
+        hostname = {
+          ssh_only = false;
+          ssh_symbol = "🌐 ";
+          format = "on [$hostname](bold red) ";
+          trim_at = ".local";
+          disabled = false;
+        };
+      };
+    };
+
+    # https://nixos.asia/en/direnv
     direnv = {
       enable = true;
       nix-direnv.enable = true;
     };
-  };
 
+    # https://nixos.asia/en/git
+    git = {
+      enable = true;
+      # userName = "John Doe";
+      # userEmail = "johndoe@example.com";
+      ignores = [ "*~" "*.swp" ];
+      lfs.enable = true;
+      userEmail = "gregorykanter1@gmail.com";
+      userName = "Gregory Kanter";
+      extraConfig = {
+        init = {
+          defaultBranch = "main";
+        };
+        credential = {
+          helper = "git-credential-manager";
+          credentialStore = "secretservice";
+        };
+      };
+    };
+    lazygit.enable = true;
+
+  };
   xdg = {
     enable = true;
     mime.enable = true;
@@ -195,15 +206,4 @@
     };
   };
   targets.genericLinux.enable = true;
-
-  nix = {
-    package = with pkgs; nixUnstable;
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      use-xdg-base-directories = true;
-    };
-  };
 }
