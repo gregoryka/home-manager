@@ -23,7 +23,6 @@
       # Dev
       tmate
 
-      git-credential-manager
       dust
       tldr
       nh
@@ -168,7 +167,7 @@
       extraConfig = {
         init = { defaultBranch = "main"; };
         credential = {
-          helper = "git-credential-manager";
+          helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
           credentialStore = "secretservice";
         };
       };
