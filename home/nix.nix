@@ -1,11 +1,10 @@
-{ flake, pkgs, ... }:
-{
-  imports = [
-    flake.inputs.declarative-cachix.homeManagerModules.declarative-cachix
-  ];
+{ flake, pkgs, ... }: {
+  imports =
+    [ flake.inputs.declarative-cachix.homeManagerModules.declarative-cachix ];
   # Recommended Nix settings
   nix = {
-    registry.nixpkgs.flake = flake.inputs.nixpkgs; # https://yusef.napora.org/blog/pinning-nixpkgs-flake/
+    registry.nixpkgs.flake =
+      flake.inputs.nixpkgs; # https://yusef.napora.org/blog/pinning-nixpkgs-flake/
 
     # FIXME: Waiting for this to be merged:
     # https://github.com/nix-community/home-manager/pull/4031
@@ -13,10 +12,7 @@
 
     package = with pkgs; nix;
     settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+      experimental-features = [ "nix-command" "flakes" ];
       use-xdg-base-directories = true;
     };
 

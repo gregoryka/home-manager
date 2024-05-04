@@ -1,9 +1,5 @@
-{ flake, pkgs, config, ... }:
-{
-  imports = [
-    ./nix.nix
-    ./nix-index.nix
-  ];
+{ pkgs, config, ... }: {
+  imports = [ ./nix.nix ./nix-index.nix ];
 
   # Nix packages to install to $HOME
   #
@@ -52,7 +48,7 @@
       # '';
     };
 
-    shellAliases = {};
+    shellAliases = { };
 
     # Home Manager can also manage your environment variables through
     # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -94,21 +90,13 @@
       # And then run compinit again to load all completions
       completionInit = "compinit";
 
-      dotDir =
-        let
-          relativeConfigHome =
-            builtins.replaceStrings
-              [
-                config.home.homeDirectory
-                "/.config"
-              ]
-              [
-                ""
-                ".config"
-              ]
-              config.xdg.configHome;
-        in
-        "${relativeConfigHome}/zsh";
+      dotDir = let
+        relativeConfigHome =
+          builtins.replaceStrings [ config.home.homeDirectory "/.config" ] [
+            ""
+            ".config"
+          ] config.xdg.configHome;
+      in "${relativeConfigHome}/zsh";
 
       antidote = {
         enable = true;
@@ -178,9 +166,7 @@
       userEmail = "gregorykanter1@gmail.com";
       userName = "Gregory Kanter";
       extraConfig = {
-        init = {
-          defaultBranch = "main";
-        };
+        init = { defaultBranch = "main"; };
         credential = {
           helper = "git-credential-manager";
           credentialStore = "secretservice";
@@ -195,10 +181,7 @@
     mime.enable = true;
     systemDirs = {
       config = [ "/etc/xdg" ];
-      data = [
-        "/usr/share"
-        "/usr/local/share"
-      ];
+      data = [ "/usr/share" "/usr/local/share" ];
     };
     userDirs = {
       enable = true;

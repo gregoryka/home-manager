@@ -1,5 +1,6 @@
 {
-  description = "A home-manager template providing useful tools & settings for Nix-based development";
+  description =
+    "A home-manager template providing useful tools & settings for Nix-based development";
 
   inputs = {
     # Principle inputs (updated by `nix run .#update`)
@@ -40,24 +41,26 @@
 
       flake.nix-dev-home.username = "gregorykanter";
 
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      perSystem = { config, pkgs, system, ... }: {
         formatter = with pkgs; nixfmt;
 
         devenv.shells.default = {
-          devenv.root =
-            let
-              devenvRootFileContent = builtins.readFile inputs.devenv-root.outPath;
-            in
-            pkgs.lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
+          devenv.root = let
+            devenvRootFileContent =
+              builtins.readFile inputs.devenv-root.outPath;
+          in pkgs.lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
 
           name = "my-project";
-
-
-
 
           languages.nix = {
             enable = true;
             lsp.package = with pkgs; nixd;
+          };
+
+          pre-commit.hooks = {
+            deadnix.enable = true;
+            flake-checker.enable = true;
+            statix.enable = true;
           };
 
           imports = [
@@ -68,19 +71,15 @@
 
           # https://devenv.sh/reference/options/
           packages = let
-          extensions = inputs.nix-vscode-extensions.extensions.${system};
-          vscode-ext = pkgs.vscode-with-extensions.override {
-            vscode = pkgs.vscodium;
-            vscodeExtensions = [
-              # extensions.vscode-marketplace.golang.go
-              extensions.open-vsx.jnoortheen.nix-ide
-            ];
-          };
-          in
-          [
-            config.packages.default
-            vscode-ext
-          ];
+            extensions = inputs.nix-vscode-extensions.extensions.${system};
+            vscode-ext = pkgs.vscode-with-extensions.override {
+              vscode = pkgs.vscodium;
+              vscodeExtensions = [
+                # extensions.vscode-marketplace.golang.go
+                extensions.open-vsx.jnoortheen.nix-ide
+              ];
+            };
+          in [ config.packages.default vscode-ext ];
         };
       };
     };
