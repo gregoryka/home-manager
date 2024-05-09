@@ -35,8 +35,6 @@
     }
   ];
 
-  home.packages = with pkgs; [
-    nix
-  ];
+  home.packages = with pkgs; [ nix ];
 
 }
