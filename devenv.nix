@@ -36,6 +36,7 @@
           vscodeExtensions = [
             # extensions.vscode-marketplace.golang.go
             extensions.open-vsx.jnoortheen.nix-ide
+            extensions.open-vsx.eamodio.gitlens
           ];
         };
       in [ config.packages.default vscode-ext ];
