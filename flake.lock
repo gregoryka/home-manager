@@ -8,11 +8,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1715700274,
-        "narHash": "sha256-hiuMucLIUaZLS4co9KBZXzkcjNpQlHkD/lgLp3lFTf0=",
+        "lastModified": 1715954156,
+        "narHash": "sha256-3qGryENDfCYycrCDhpXl4ZPVYkmDwC1ospJHVJKrGcs=",
         "owner": "cachix",
         "repo": "cachix",
-        "rev": "bdb58148d0c30c1ae712b3d7d5847a2a7d080d2e",
+        "rev": "37495ec6f30ac95ac7c2772b0dd2b5f1282dce69",
         "type": "github"
       },
       "original": {

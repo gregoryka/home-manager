@@ -53,6 +53,7 @@
 
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      debug = true;
       systems = import inputs.systems;
       imports = [
         inputs.nixos-flake.flakeModule
