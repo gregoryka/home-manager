@@ -49,6 +49,29 @@
         flake-utils.follows = "flake-utils";
       };
     };
+
+    # Zsh stuff
+    zephyr = {
+      url = "github:mattmc3/zephyr";
+      flake = false;
+    };
+    # Updated zsh-completions compared to nixpkgs
+    zsh-completions = {
+      url = "github:zsh-users/zsh-completions";
+      flake = false;
+    };
+    ohmyzsh = {
+      url = "github:ohmyzsh/ohmyzsh";
+      flake = false;
+    };
+    zsh-utils = {
+      url = "github:belak/zsh-utils";
+      flake = false;
+    };
+    flatpak-zsh-completion = {
+      url = "github:bilelmoussaoui/flatpak-zsh-completion";
+      flake = false;
+    };
   };
 
   outputs = inputs:

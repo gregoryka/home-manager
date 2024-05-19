@@ -1,18 +1,22 @@
-{config, ...}:
+{ flake, pkgs, config, ... }:
 
 {
-  # TODO - fixup completion to occur in antidote via plugin instead.
+  home.packages = with pkgs;
+    [
+      nix-zsh-completions # completion for classic commands; completion for new nix is built in the nix package
+    ];
+
   programs = {
-      zsh = {
+    zsh = {
       enable = true;
-      enableCompletion = true;
+      # enableCompletion adds nix-zsh-completion package and calls compinit.
+      # I added the package manually and a plugin will call compinit.
+      enableCompletion = false;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
 
-      # Some plugins use compdef command directly, so run compinit early
-      initExtraFirst = "autoload -U compinit && compinit";
-      # And then run compinit again to load all completions
-      completionInit = "compinit";
+      initExtraFirst =
+        "zstyle ':zephyr:plugin:completion' manual on"; # Set zephyr manual completion flag
 
       dotDir = let
         relativeConfigHome =
@@ -25,15 +29,27 @@
       antidote = {
         enable = true;
         plugins = [
-          # Completion files are marked with kind:fpath
-          "zsh-users/zsh-completions path:src kind:fpath"
+          # zephyr completion takes care of the problem where some plugins use compdef directly
+          "${flake.inputs.zephyr.outPath} path:plugins/completion"
+
+          "${flake.inputs.zsh-completions.outPath} path:src kind:fpath"
+
+          # Saner key bindings
+          "${flake.inputs.zephyr.outPath} path:plugins/editor"
 
           # For fedora based systems
-          "ohmyzsh/ohmyzsh path:plugins/dnf"
-          "bilelmoussaoui/flatpak-zsh-completion"
+          "${flake.inputs.ohmyzsh.outPath} path:plugins/dnf"
+
+          # Flatpak completion plugin which in not in fpath style
+          "${flake.inputs.flatpak-zsh-completion.outPath}"
+
+          # Enable actual completion
+          "${flake.inputs.zsh-utils.outPath} path:completion"
+
           # Supposedly this should be at the end
           # https://github.com/getantidote/zdotdir/blob/1a34e6dd3d78862c82ba3babd19bd8c882c77d65/.zsh_plugins.txt#L227
-          "zsh-users/zsh-autosuggestions"
+          # autosuggestion.enable takes care of this one already
+          # "zsh-users/zsh-autosuggestions"
         ];
         useFriendlyNames = true;
       };

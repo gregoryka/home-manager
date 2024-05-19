@@ -271,6 +271,22 @@
         "type": "github"
       }
     },
+    "flatpak-zsh-completion": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1554121944,
+        "narHash": "sha256-+6r+zzyX28PI3AUGU04g9/VLbuFApdSQd7SWpVrMOQk=",
+        "owner": "bilelmoussaoui",
+        "repo": "flatpak-zsh-completion",
+        "rev": "de6a0758a374b257bfd0b060a34bc0a951e91b84",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bilelmoussaoui",
+        "repo": "flatpak-zsh-completion",
+        "type": "github"
+      }
+    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -658,6 +674,22 @@
         "type": "github"
       }
     },
+    "ohmyzsh": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715890416,
+        "narHash": "sha256-wqh0KMHA+JaqKmXz9BRlSn0rWrRRuadDpcBUWBnmOjQ=",
+        "owner": "ohmyzsh",
+        "repo": "ohmyzsh",
+        "rev": "a779d6563ffb2f0093b4b74c8d5ff0982fa3e930",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ohmyzsh",
+        "repo": "ohmyzsh",
+        "type": "github"
+      }
+    },
     "poetry2nix": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -744,6 +776,7 @@
         "devenv-root": "devenv-root",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils_4",
+        "flatpak-zsh-completion": "flatpak-zsh-completion",
         "home-manager": "home-manager",
         "nix-index-database": "nix-index-database",
         "nix-vscode-extensions": "nix-vscode-extensions",
@@ -751,7 +784,11 @@
         "nixgl": "nixgl",
         "nixos-flake": "nixos-flake",
         "nixpkgs": "nixpkgs_4",
-        "systems": "systems_5"
+        "ohmyzsh": "ohmyzsh",
+        "systems": "systems_5",
+        "zephyr": "zephyr",
+        "zsh-completions": "zsh-completions",
+        "zsh-utils": "zsh-utils"
       }
     },
     "systems": {
@@ -826,6 +863,54 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "zephyr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713881710,
+        "narHash": "sha256-lMufBaJiTixQZQTH9MWE+0LteIBLQAKuIo2tWsnbwNE=",
+        "owner": "mattmc3",
+        "repo": "zephyr",
+        "rev": "81193c9683c6a212efbcc4c07b62c9e62317fc93",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mattmc3",
+        "repo": "zephyr",
+        "type": "github"
+      }
+    },
+    "zsh-completions": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714017803,
+        "narHash": "sha256-eqpZp61qCrdp6yrexQJWgEl9Efjk/aTj/AImplpl6gg=",
+        "owner": "zsh-users",
+        "repo": "zsh-completions",
+        "rev": "b1cf65187047a83e27a0847bd565dcf28b5be465",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zsh-users",
+        "repo": "zsh-completions",
+        "type": "github"
+      }
+    },
+    "zsh-utils": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710132872,
+        "narHash": "sha256-lO3+Pa8YjQaVkuD93fgO2AOcWN5JvNIBxBDu9+0ck48=",
+        "owner": "belak",
+        "repo": "zsh-utils",
+        "rev": "0e3238b6462fd5cd7c4c6b5d1dccbe5a69d2b5b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "belak",
+        "repo": "zsh-utils",
         "type": "github"
       }
     }
