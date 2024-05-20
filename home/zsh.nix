@@ -37,6 +37,8 @@
           # Saner key bindings
           "${flake.inputs.zephyr.outPath} path:plugins/editor"
 
+          "${flake.inputs.zsh-bench.outPath} kind:path"
+
           # For fedora based systems
           "${flake.inputs.ohmyzsh.outPath} path:plugins/dnf"
 

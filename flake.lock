@@ -787,6 +787,7 @@
         "ohmyzsh": "ohmyzsh",
         "systems": "systems_5",
         "zephyr": "zephyr",
+        "zsh-bench": "zsh-bench",
         "zsh-completions": "zsh-completions",
         "zsh-utils": "zsh-utils"
       }
@@ -879,6 +880,22 @@
       "original": {
         "owner": "mattmc3",
         "repo": "zephyr",
+        "type": "github"
+      }
+    },
+    "zsh-bench": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1699859203,
+        "narHash": "sha256-Jl9xFNIl1/ZjgR1e/+EuPIhM355aIpsoS1L1IJyp13g=",
+        "owner": "romkatv",
+        "repo": "zsh-bench",
+        "rev": "3b4896c4840c64bea8e79b8392a93dfdc5a0a096",
+        "type": "github"
+      },
+      "original": {
+        "owner": "romkatv",
+        "repo": "zsh-bench",
         "type": "github"
       }
     },

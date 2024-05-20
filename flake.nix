@@ -72,6 +72,10 @@
       url = "github:bilelmoussaoui/flatpak-zsh-completion";
       flake = false;
     };
+    zsh-bench = {
+      url = "github:romkatv/zsh-bench";
+      flake = false;
+    };
   };
 
   outputs = inputs:
