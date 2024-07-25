@@ -14,9 +14,10 @@
       enableCompletion = false;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
+      zprof.enable = true;
 
-      initExtraFirst =
-        "zstyle ':zephyr:plugin:completion' manual on"; # Set zephyr manual completion flag
+      # initExtraFirst =
+      #   "zstyle ':zephyr:plugin:completion' manual on"; # Set zephyr manual completion flag
 
       dotDir = let
         relativeConfigHome =
@@ -30,7 +31,8 @@
         enable = true;
         plugins = [
           # zephyr completion takes care of the problem where some plugins use compdef directly
-          "${flake.inputs.zephyr.outPath} path:plugins/completion"
+          # But slows down init shell considerably for no real benefit (compinit is slow)
+          # "${flake.inputs.zephyr.outPath} path:plugins/completion"
 
           "${flake.inputs.zsh-completions.outPath} path:src kind:fpath"
 
@@ -42,8 +44,8 @@
           # For fedora based systems
           "${flake.inputs.ohmyzsh.outPath} path:plugins/dnf"
 
-          # Flatpak completion plugin which in not in fpath style
-          "${flake.inputs.flatpak-zsh-completion.outPath}"
+          # Flatpak completion plugin which in not in fpath style - defer to get around
+          "${flake.inputs.flatpak-zsh-completion.outPath} kind:defer"
 
           # Enable actual completion
           "${flake.inputs.zsh-utils.outPath} path:completion"

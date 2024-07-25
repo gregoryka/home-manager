@@ -5,7 +5,12 @@
   #
   # Search for packages here: https://search.nixos.org/packages
   home = {
-    packages = with pkgs; [
+    packages = with pkgs; let
+      pyload = pyload-ng.override {
+        python3 = python311;  # depends on a lib that doesn't support 3.12
+      };
+    in
+    [
       # Unix tools
       ripgrep # Better `grep`
       fd
@@ -16,7 +21,6 @@
       cachix
       nixd # Nix language server
       nix-info
-      nixpkgs-fmt
       nixci
       nix-health
 
@@ -28,8 +32,18 @@
       nh
       nix-output-monitor
       nvd
-      pyload-ng
+
+      # nix-du allows
+      nix-du
+      zgrviewer
+
+      pyload
       devenv
+
+      # For eza
+      cascadia-code
+      font-awesome_6
+      nerdfonts
     ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -77,7 +91,10 @@
 
     # Better `cat`
     bat.enable = true;
-    eza.enable = true;
+    eza = {
+      enable = true;
+      icons = true;
+    };
     btop.enable = true;
     atuin.enable = true;
     # Type `z <pat>` to cd to some directory

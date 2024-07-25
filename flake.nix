@@ -26,7 +26,6 @@
     };
     devenv = {
       url = "github:cachix/devenv";
-      inputs.cachix.inputs.devenv.follows = "devenv";
     };
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
