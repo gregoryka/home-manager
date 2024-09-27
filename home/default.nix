@@ -1,50 +1,54 @@
-{ pkgs, config, ... }: {
-  imports = [ ./nix.nix ./nix-index.nix ./zsh.nix ];
+{ pkgs, config, ... }:
+{
+  imports = [
+    ./nix.nix
+    ./nix-index.nix
+    ./zsh.nix
+  ];
 
   # Nix packages to install to $HOME
   #
   # Search for packages here: https://search.nixos.org/packages
   home = {
-    packages = with pkgs; let
-      pyload = pyload-ng.override {
-        python3 = python311;  # depends on a lib that doesn't support 3.12
-      };
-    in
-    [
-      # Unix tools
-      ripgrep # Better `grep`
-      fd
-      sd
-      tree
+    packages =
+      with pkgs;
+      let
+        pyload = pyload-ng.override {
+          python3 = python311; # depends on a lib that doesn't support 3.12
+        };
+      in
+      [
+        # Unix tools
+        ripgrep # Better `grep`
+        fd
+        sd
+        tree
 
-      # Nix dev
-      cachix
-      nixd # Nix language server
-      nix-info
-      nixci
-      nix-health
+        # Nix dev
+        cachix
+        nixd # Nix language server
+        nix-info
+        nixci
+        nix-health
 
-      # Dev
-      tmate
+        dust
+        tldr
+        nh
+        nix-output-monitor
+        nvd
 
-      dust
-      tldr
-      nh
-      nix-output-monitor
-      nvd
+        # nix-du allows
+        nix-du
+        zgrviewer
 
-      # nix-du allows
-      nix-du
-      zgrviewer
+        pyload
+        devenv
 
-      pyload
-      devenv
-
-      # For eza
-      cascadia-code
-      font-awesome_6
-      nerdfonts
-    ];
+        # For eza
+        cascadia-code
+        font-awesome_6
+        nerdfonts
+      ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
@@ -121,12 +125,17 @@
       enable = true;
       # userName = "John Doe";
       # userEmail = "johndoe@example.com";
-      ignores = [ "*~" "*.swp" ];
+      ignores = [
+        "*~"
+        "*.swp"
+      ];
       lfs.enable = true;
       userEmail = "gregorykanter1@gmail.com";
       userName = "Gregory Kanter";
       extraConfig = {
-        init = { defaultBranch = "main"; };
+        init = {
+          defaultBranch = "main";
+        };
         credential = {
           helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
           credentialStore = "secretservice";
@@ -141,7 +150,10 @@
     mime.enable = true;
     systemDirs = {
       config = [ "/etc/xdg" ];
-      data = [ "/usr/share" "/usr/local/share" ];
+      data = [
+        "/usr/share"
+        "/usr/local/share"
+      ];
     };
     userDirs = {
       enable = true;

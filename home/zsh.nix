@@ -1,10 +1,14 @@
-{ flake, pkgs, config, ... }:
+{
+  flake,
+  pkgs,
+  config,
+  ...
+}:
 
 {
-  home.packages = with pkgs;
-    [
-      nix-zsh-completions # completion for classic commands; completion for new nix is built in the nix package
-    ];
+  home.packages = with pkgs; [
+    nix-zsh-completions # completion for classic commands; completion for new nix is built in the nix package
+  ];
 
   programs = {
     zsh = {
@@ -19,13 +23,21 @@
       # initExtraFirst =
       #   "zstyle ':zephyr:plugin:completion' manual on"; # Set zephyr manual completion flag
 
-      dotDir = let
-        relativeConfigHome =
-          builtins.replaceStrings [ config.home.homeDirectory "/.config" ] [
-            ""
-            ".config"
-          ] config.xdg.configHome;
-      in "${relativeConfigHome}/zsh";
+      dotDir =
+        let
+          relativeConfigHome =
+            builtins.replaceStrings
+              [
+                config.home.homeDirectory
+                "/.config"
+              ]
+              [
+                ""
+                ".config"
+              ]
+              config.xdg.configHome;
+        in
+        "${relativeConfigHome}/zsh";
 
       antidote = {
         enable = true;

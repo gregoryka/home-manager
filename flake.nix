@@ -1,6 +1,5 @@
 {
-  description =
-    "A home-manager template providing useful tools & settings for Nix-based development";
+  description = "A home-manager template providing useful tools & settings for Nix-based development";
 
   inputs = {
     # Principle inputs (updated by `nix run .#update`)
@@ -15,17 +14,10 @@
     systems.url = "github:nix-systems/default";
 
     # Software inputs
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     declarative-cachix.url = "github:jonascarpay/declarative-cachix";
-    devenv-root = {
-      url = "file+file:///dev/null";
-      flake = false;
-    };
-    devenv = {
-      url = "github:cachix/devenv";
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
@@ -41,12 +33,10 @@
         flake-utils.follows = "flake-utils";
       };
     };
-    nix2container = {
-      url = "github:nlewo/nix2container";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Zsh stuff
@@ -77,14 +67,15 @@
     };
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       debug = true;
       systems = import inputs.systems;
       imports = [
         inputs.nixos-flake.flakeModule
-        inputs.devenv.flakeModule
-        ./devenv.nix
+        ./devshell.nix
+        ./formatter.nix
         ./nix/toplevel.nix
       ];
 
