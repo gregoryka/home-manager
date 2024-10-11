@@ -35,7 +35,7 @@
       zgrviewer
 
       pyload-ng
-      devenv
+      megasync
 
       # For eza
       cascadia-code
