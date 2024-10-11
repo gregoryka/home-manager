@@ -2,7 +2,10 @@
   cudaSupport = true;
   allowUnfreePredicate =
     p:
-    builtins.all (
+    builtins.elem p.pname [
+      "megasync"
+    ]
+    || builtins.all (
       license:
       license.free
       || builtins.elem license.shortName [
