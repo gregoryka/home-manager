@@ -10,45 +10,38 @@
   #
   # Search for packages here: https://search.nixos.org/packages
   home = {
-    packages =
-      with pkgs;
-      let
-        pyload = pyload-ng.override {
-          python3 = python311; # depends on a lib that doesn't support 3.12
-        };
-      in
-      [
-        # Unix tools
-        ripgrep # Better `grep`
-        fd
-        sd
-        tree
+    packages = with pkgs; [
+      # Unix tools
+      ripgrep # Better `grep`
+      fd
+      sd
+      tree
 
-        # Nix dev
-        cachix
-        nixd # Nix language server
-        nix-info
-        nixci
-        nix-health
+      # Nix dev
+      cachix
+      nixd # Nix language server
+      nix-info
+      nixci
+      nix-health
 
-        dust
-        tldr
-        nh
-        nix-output-monitor
-        nvd
+      dust
+      tldr
+      nh
+      nix-output-monitor
+      nvd
 
-        # nix-du allows
-        nix-du
-        zgrviewer
+      # nix-du allows
+      nix-du
+      zgrviewer
 
-        pyload
-        devenv
+      pyload-ng
+      devenv
 
-        # For eza
-        cascadia-code
-        font-awesome_6
-        nerdfonts
-      ];
+      # For eza
+      cascadia-code
+      font-awesome_6
+      nerdfonts
+    ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
