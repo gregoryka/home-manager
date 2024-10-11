@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixos-flake.url = "github:srid/nixos-flake";
+    nixos-unified.url = "github:srid/nixos-unified";
     systems.url = "github:nix-systems/default";
 
     # Software inputs
@@ -77,7 +77,7 @@
       debug = true;
       systems = import inputs.systems;
       imports = [
-        inputs.nixos-flake.flakeModule
+        inputs.nixos-unified.flakeModules.default
         ./devshell.nix
         ./formatter.nix
         ./nix/toplevel.nix

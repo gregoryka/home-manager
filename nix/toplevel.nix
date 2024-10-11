@@ -20,7 +20,7 @@
     { self', pkgs, ... }:
     {
       legacyPackages.homeConfigurations.${self.nix-dev-home.username} =
-        inputs.self.nixos-flake.lib.mkHomeConfiguration pkgs
+        inputs.self.nixos-unified.lib.mkHomeConfiguration pkgs
           (
             { pkgs, ... }:
             {
