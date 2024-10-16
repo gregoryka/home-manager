@@ -40,7 +40,7 @@
       # For eza
       cascadia-code
       font-awesome_6
-      nerdfonts
+      (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
     ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
