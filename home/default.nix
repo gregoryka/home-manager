@@ -90,7 +90,7 @@
     bat.enable = true;
     eza = {
       enable = true;
-      icons = true;
+      icons = "auto";
     };
     btop.enable = true;
     atuin.enable = true;
