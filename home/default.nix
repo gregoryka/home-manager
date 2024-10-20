@@ -3,6 +3,7 @@
   imports = [
     ./nix.nix
     ./nix-index.nix
+    ./nixvim.nix
     ./zsh.nix
   ];
 
