@@ -17,6 +17,7 @@
       fd
       sd
       tree
+      tmux
 
       # Nix dev
       cachix
