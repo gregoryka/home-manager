@@ -30,6 +30,10 @@
 
         folding = true;
         nixGrammars = true; # Install via nix
+        gccPackage = null;
+        nodejsPackage = null;
+        treesitterPackage = null;
+
         settings = {
           auto_install = false;
           highlight.enable = true;
