@@ -135,6 +135,12 @@
           helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
           credentialStore = "secretservice";
         };
+        sendemail = {
+          smtpEncryption = "tls";
+          smtpServer = "smtp.gmail.com";
+          smtpUser = "gregorykanter1@gmail.com";
+          smtpServerPort = 587;
+        };
       };
     };
     lazygit.enable = true;
