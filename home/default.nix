@@ -42,7 +42,7 @@
       # For eza
       cascadia-code
       font-awesome_6
-      nerdfonts.cascadia-code
+      nerd-fonts.caskaydia-cove
 
       jellyfin-media-player
     ];
