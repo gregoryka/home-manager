@@ -42,7 +42,9 @@
       # For eza
       cascadia-code
       font-awesome_6
-      (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+      nerdfonts.cascadia-code
+
+      jellyfin-media-player
     ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
