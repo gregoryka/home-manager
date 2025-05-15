@@ -10,6 +10,7 @@
   # Nix packages to install to $HOME
   #
   # Search for packages here: https://search.nixos.org/packages
+  fonts.fontconfig.enable = true;
   home = {
     packages = with pkgs; [
       # Unix tools
@@ -45,6 +46,8 @@
       nerd-fonts.caskaydia-cove
 
       jellyfin-media-player
+
+      rustup
     ];
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage

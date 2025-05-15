@@ -69,6 +69,7 @@
           json
           meson
           nix
+          rust
           python
           tmux
           xml
@@ -92,6 +93,7 @@
         enable = true;
         servers = {
           nixd.enable = true;
+          rust_analyzer.enable = true;
         };
       };
       web-devicons.enable = true;
