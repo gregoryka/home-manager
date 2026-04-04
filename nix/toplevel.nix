@@ -39,8 +39,8 @@
             }
           );
 
-      # Enables 'nix run' to activate.
-      apps.default.program = self'.packages.activate-home;
+      # Enables 'nix run' to activate. - doesn't work anymore
+      # apps.default.program = self'.packages.activate-home;
 
       # Enable 'nix build' to build the home configuration, but without
       # activating.

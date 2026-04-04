@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./nix.nix
@@ -21,10 +21,10 @@
       tmux
 
       # Nix dev
-      cachix
+      # cachix
       nixd # Nix language server
       nix-info
-      nixci
+      # nixci
       nix-health
 
       dust
@@ -34,10 +34,10 @@
       nvd
 
       # nix-du allows
-      nix-du
-      zgrviewer
+      # nix-du
+      # zgrviewer
 
-      pyload-ng
+      # pyload-ng # removed due to vulnerabilities and being unmaintained
       megasync
 
       # For eza
@@ -45,7 +45,7 @@
       font-awesome_6
       nerd-fonts.caskaydia-cove
 
-      jellyfin-media-player
+      # jellyfin-media-player
 
       rustup
     ];
@@ -130,9 +130,11 @@
         "*.swp"
       ];
       lfs.enable = true;
-      userEmail = "gregorykanter1@gmail.com";
-      userName = "Gregory Kanter";
-      extraConfig = {
+      settings = {
+        user = {
+          name = "Gregory Kanter";
+          email = "gregorykanter1@gmail.com";
+        };
         init = {
           defaultBranch = "main";
         };

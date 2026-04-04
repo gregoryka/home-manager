@@ -11,7 +11,6 @@
     };
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-unified.url = "github:srid/nixos-unified";
-    systems.url = "github:nix-systems/default";
 
     # Software inputs
     declarative-cachix.url = "github:jonascarpay/declarative-cachix";
@@ -34,7 +33,6 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
       };
     };
     nixgl = {
@@ -82,7 +80,7 @@
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       debug = true;
-      systems = import inputs.systems;
+      systems = [ "x86_64-linux" ];
       imports = [
         inputs.nixos-unified.flakeModules.default
         ./devshell.nix

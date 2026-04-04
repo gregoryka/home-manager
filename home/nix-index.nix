@@ -1,6 +1,6 @@
 { flake, ... }:
 {
-  imports = [ flake.inputs.nix-index-database.hmModules.nix-index ];
+  imports = [ flake.inputs.nix-index-database.homeModules.nix-index ];
 
   # command-not-found handler to suggest nix way of installing stuff.
   # command-not-found handler to suggest nix way of installing stuff.

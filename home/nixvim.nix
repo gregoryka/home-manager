@@ -1,6 +1,6 @@
 { flake, pkgs, ... }:
 {
-  imports = [ flake.inputs.nixvim.homeManagerModules.nixvim ];
+  imports = [ flake.inputs.nixvim.homeModules.nixvim ];
   # Recommended Nix settings
 
   programs.nixvim = {
@@ -76,7 +76,7 @@
           yaml
         ];
 
-        folding = true;
+        folding.enable = true;
         nixGrammars = true; # Install via nix
         gccPackage = null;
         nodejsPackage = null;
